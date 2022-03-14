@@ -1,13 +1,16 @@
 from flask import request, Flask
 import mysql.connector
 import time
+import sys
+import json
 
 time.sleep(1)
 
 app = Flask(__name__)
+HOST = sys.argv[1] if len(sys.argv) > 1 else 'db'
 
 db = mysql.connector.connect(
-    host="db",
+    host=HOST,
     user="root",
     password="root",
     database="db",
@@ -18,7 +21,8 @@ cursor = db.cursor()
 def get_user(userid: int):
     global cursor
     cursor.execute("SELECT * FROM Users WHERE id = '" + userid + "';")
-    return cursor.fetchall()[0]
+    resp = cursor.fetchone()
+    return json.dumps(resp)
 
 def post_user(user):
     return null
