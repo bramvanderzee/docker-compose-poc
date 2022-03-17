@@ -12,7 +12,9 @@ services:
     volumes:
       - db:/var/lib/mysql
   flask:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile_debug
     ports:
       - '5000:5000'
     volumes:
