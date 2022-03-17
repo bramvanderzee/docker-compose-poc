@@ -19,14 +19,16 @@ services:
       - ./backend:/app
     depends_on:
       - 'db'
-    restart: always
   vue:
-    build: ./frontend
-    ports:
-      - '80:80'
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile_debug
+    volumes:
+      - ./frontend:/app
     depends_on:
       - 'flask'
-    restart: always
+    ports:
+      - '8080:8080'
 
 volumes:
   db:
