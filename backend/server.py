@@ -1,4 +1,5 @@
 from flask import request, Flask
+from flask_cors import CORS, cross_origin
 import mysql.connector
 import time
 import sys
@@ -7,6 +8,8 @@ import json
 time.sleep(1)
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
+
 HOST = sys.argv[1] if len(sys.argv) > 1 else 'db'
 
 db = mysql.connector.connect(
@@ -30,6 +33,7 @@ def post_user(user):
     return null
 
 @app.route('/user/<userid>', methods=['GET'])
+@cross_origin(supports_credentials=True)
 def user(userid: int):
     user = get_user(userid)
     if user and user != "" and user != None:
