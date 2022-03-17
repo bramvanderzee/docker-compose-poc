@@ -22,6 +22,8 @@ def get_user(userid: int):
     global cursor
     cursor.execute("SELECT * FROM Users WHERE id = '" + userid + "';")
     resp = cursor.fetchone()
+    if not resp:
+        return None
     return json.dumps(resp)
 
 def post_user(user):
@@ -29,7 +31,11 @@ def post_user(user):
 
 @app.route('/user/<userid>', methods=['GET'])
 def user(userid: int):
-    return get_user(userid)
+    user = get_user(userid)
+    if user and user != "" and user != None:
+        return user, 200
+    else:
+        return 'User not found', 404
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
