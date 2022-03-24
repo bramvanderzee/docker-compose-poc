@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     get_info() {
-      fetch('http://localhost:5000/user/' + this.user_id).then(
+      fetch('http://localhost:8000/user/' + this.user_id).then(
         response => {
           if(response.ok) {
             response.json().then(

@@ -7,5 +7,4 @@ WORKDIR /app
 RUN pip3 install -r requirements.txt
 COPY . .
 
-ENTRYPOINT ["python3"]
-CMD ["server.py"]
+ENTRYPOINT ["python3", "server.py"]
